@@ -1,0 +1,22 @@
+SELECT 
+CR.CODE 'Cari Kodu',
+CR.DEFINITION_  'Cari Ünvan',
+CR.SPECODE 'Cari Özel Kod',
+CASE(MONTH(DATE_)) 
+WHEN 1 THEN 'Ocak' WHEN 2 THEN 'Şubat' WHEN 3 THEN 'Mart' WHEN 4 THEN 'Nisan' WHEN 5 THEN 'Mayıs' WHEN 6 THEN 'Haziran' WHEN 7 THEN 'Temmuz' WHEN 8 THEN 'Ağustos' WHEN 9 THEN 'Eylül' WHEN 10 THEN 'Ekim' WHEN 11 THEN 'Kasım' WHEN 12 THEN 'Aralık' eLSE 'Diğer' END 'Ay', 
+CASE(MODULENR) 
+WHEN 4 THEN 'Fatura'
+WHEN 5 THEN 'Cari Fiş' 
+WHEN 6 THEN 'Çek - Senet'
+ELSE 'Diğer' END 'Tür', 
+CASE (C.TRCODE) 
+WHEN 1 THEN 'Nakit Tahsilat'
+WHEN 14 THEN 'Açılış Fişi'
+WHEN 33 THEN 'Toptan Satış İade Fat'
+WHEN 37 THEN 'Perakende Satış Fat' 
+WHEN 38 THEN 'Toptan Satış Fat' 
+WHEN 61 THEN 'Çek Girişi' WHEN 62 THEN 'Senet Girişi' 
+ END 'Fatura Türü',
+case(SIGN) WHEN 0 THEN SUM(AMOUNT) ELSE SUM(0-AMOUNT) END 'Tutar' 
+FROM LG_024_01_CLFLINE C INNER JOIN LG_024_CLCARD CR ON C.CLIENTREF=CR.LOGICALREF
+GROUP BY CR.CODE, CR.DEFINITION_, CR.SPECODE,MONTH(C.DATE_),C.MODULENR,C.TRCODE,C.SIGN
