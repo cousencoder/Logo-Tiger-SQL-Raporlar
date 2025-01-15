@@ -1,0 +1,17 @@
+Birçok raporda kullanabileceğiniz yapılan ne kadarı manuel ne kadarı otomatik tanımlı yapılmış olduğunu gösteren SQLINFO
+
+Bu görmek için rapora eklenecek tanımlı alanlar şu şekilde:
+
+İndirim kartı ile yapılan indirim tutarı
+
+VAL(_SQLINFO("SUM(TOTAL)","LG_024_01_STLINE","LINETYPE=2 AND STOCKREF>0 AND INVOICEREF="+STR(R8.logicalRef)+""))
+
+Manuel olarak yapılan indirim tutarı
+
+VAL(_SQLINFO("SUM(TOTAL)","LG_024_01_STLINE","LINETYPE=2 AND STOCKREF=0 AND INVOICEREF="+STR(R8.logicalRef)+""))
+
+Tanımlı alan değeri Sayı olmalı
+
+Örnek Ayrıntılı tahsilat raporunda 
+
+
