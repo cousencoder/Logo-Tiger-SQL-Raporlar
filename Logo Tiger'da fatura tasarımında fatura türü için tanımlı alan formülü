@@ -1,0 +1,1 @@
+IF([Tip]=1,"e-Fatura","e-Arşiv")
